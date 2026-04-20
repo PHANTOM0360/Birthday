@@ -129,20 +129,14 @@ body::before {
   width: min(90vw, 620px);
   height: auto;
   max-height: 70vh;
-  object-fit: cover;
+  object-fit: contain;
   margin: 0 auto 40px;
-  border-radius: 4px;
-  box-shadow:
-    0 2px 4px rgba(90,62,43,0.12),
-    0 20px 45px rgba(90,62,43,0.22);
-  border: 8px solid #fdfaf3;
-  outline: 1px solid rgba(122,84,64,0.18);
   opacity: 0;
   transform: translateY(14px);
   animation: fadeUp 1.4s 0.4s ease forwards;
 }
 @media (max-width: 640px) {
-  .opening-photo { border-width: 5px; margin-bottom: 30px; }
+  .opening-photo { margin-bottom: 30px; }
 }
 .opening-label {
   font-family: 'Caveat', cursive;
@@ -659,7 +653,7 @@ body::before {
   <svg class="doodle" style="bottom:18%;left:6%;width:28px" viewBox="0 0 28 28" fill="none" stroke="#7B2D42" stroke-width="1">
     <path d="M14 4 L17 11 L24 11 L18 16 L20 23 L14 19 L8 23 L10 16 L4 11 L11 11 Z"/>
   </svg>
-  <img class="opening-photo" src="maa.jpg" alt="Maa">
+  <img class="opening-photo" src="maa.png" alt="Maa">
   <span class="opening-label">A Birthday Journal</span>
   <h1 class="opening-title">"For the woman who made everywhere feel like home."</h1>
   <p class="opening-sub">with love &amp; memory &nbsp;·&nbsp; Ebu</p>
