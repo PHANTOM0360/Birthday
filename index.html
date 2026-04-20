@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Mom</title>
+<title>For Maa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -124,14 +124,26 @@ body::before {
     radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,162,39,0.06) 0%, transparent 70%),
     var(--paper);
 }
-.opening-rule {
-  width: 1px;
-  height: 0;
-  background: linear-gradient(to bottom, transparent, var(--burgundy), transparent);
-  margin: 0 auto 50px;
-  animation: growLine 1.8s 0.5s ease forwards;
+.opening-photo {
+  display: block;
+  width: min(90vw, 620px);
+  height: auto;
+  max-height: 70vh;
+  object-fit: cover;
+  margin: 0 auto 40px;
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px rgba(90,62,43,0.12),
+    0 20px 45px rgba(90,62,43,0.22);
+  border: 8px solid #fdfaf3;
+  outline: 1px solid rgba(122,84,64,0.18);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeUp 1.4s 0.4s ease forwards;
 }
-@keyframes growLine { to { height: 80px; } }
+@media (max-width: 640px) {
+  .opening-photo { border-width: 5px; margin-bottom: 30px; }
+}
 .opening-label {
   font-family: 'Caveat', cursive;
   font-size: 15px;
@@ -634,7 +646,7 @@ body::before {
       <!-- plate -->
       <ellipse cx="19" cy="34" rx="17" ry="2" fill="rgba(90,62,43,0.12)"/>
     </svg>
-    <div class="header-wordmark">for <span>Mom</span> — with love</div>
+    <div class="header-wordmark">for <span>Maa</span> — with love</div>
   </div>
 </header>
 
@@ -647,10 +659,10 @@ body::before {
   <svg class="doodle" style="bottom:18%;left:6%;width:28px" viewBox="0 0 28 28" fill="none" stroke="#7B2D42" stroke-width="1">
     <path d="M14 4 L17 11 L24 11 L18 16 L20 23 L14 19 L8 23 L10 16 L4 11 L11 11 Z"/>
   </svg>
-  <div class="opening-rule"></div>
+  <img class="opening-photo" src="maa.png" alt="Maa">
   <span class="opening-label">A Birthday Journal</span>
   <h1 class="opening-title">"For the woman who made everywhere feel like home."</h1>
-  <p class="opening-sub">with love &amp; memory &nbsp;·&nbsp; always</p>
+  <p class="opening-sub">with love &amp; memory &nbsp;·&nbsp; Ebu</p>
 </section>
 
 <!-- SCRAPBOOK PAGES -->
@@ -768,7 +780,7 @@ body::before {
   <div class="letter-paper" id="letterPaper">
     <div class="letter-tape"></div>
     <div class="letter-date">This birthday, and every one after.</div>
-    <div class="letter-salutation">Dear Mom,</div>
+    <div class="letter-salutation">Dear Maa,</div>
     <p class="letter-body">I've been searching for the right words for longer than I'd like to admit. The truth is, there aren't any big enough. Language, just this once, isn't enough.</p>
     <p class="letter-body">You gave me a sense of belonging before I even knew what that word meant. You made a home out of every place we lived — not with things, but with the way you moved through rooms. Steady. Warm. Certain. Like you'd already decided everything was going to be okay, and made me believe it too.</p>
     <p class="letter-body">I want you to know that I noticed everything. Every early morning. Every late night you stayed up when you didn't have to. Every worry you held quietly to yourself so I wouldn't have to carry it. Every sacrifice you made without once calling it one.</p>
@@ -777,7 +789,7 @@ body::before {
     <p class="letter-body">Today belongs to you. Every page of this does. Every memory I held here was held with care — because you are worth that care, and a great deal more besides.</p>
     <div class="letter-sign">
       With all my love,<br>
-      <span style="font-size:24px;color:var(--burgundy);">Your child ♡</span>
+      <span style="font-size:24px;color:var(--burgundy);">Ebu ♡</span>
     </div>
   </div>
 </section>
@@ -807,7 +819,7 @@ body::before {
 
 <!-- CUTE EXTRAS -->
 <section style="padding:60px 30px;text-align:center;position:relative;z-index:2;">
-  <div class="ribbon-banner">🎀 &nbsp; Happy Birthday, Mom &nbsp; 🎂 &nbsp; You Are So Loved &nbsp; 🌸</div>
+  <div class="ribbon-banner">🎀 &nbsp; Happy Birthday, Maa &nbsp; 🎂 &nbsp; You Are So Loved &nbsp; 🌸</div>
 
   <div class="badges-row" style="margin-top:40px;">
     <span class="cute-badge">✨ World's Best Mom</span>
@@ -840,7 +852,7 @@ body::before {
     <div class="ending-rule rev"></div>
   </div>
   <p class="ending-title" id="endTitle">Happy Birthday,</p>
-  <p class="ending-name" id="endName">Mom.</p>
+  <p class="ending-name" id="endName">Maa.</p>
   <p class="ending-love" id="endLove">— with love, always ♡</p>
   <p class="ending-year">This page was made for you &nbsp;·&nbsp; with intention &amp; love</p>
 </section>
