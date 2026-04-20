@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Mom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ochre: #C9A227;
+  --ochre-light: #D4AF50;
+  --ochre-faded: rgba(201,162,39,0.15);
+  --burgundy: #7B2D42;
+  --burgundy-light: #9E4060;
+  --burgundy-faded: rgba(123,45,66,0.12);
+  --brown: #5A3E2B;
+  --brown-mid: #7A5440;
+  --brown-light: #A07858;
+  --paper: #F5EDE3;
+  --paper-dark: #EDE0D0;
+  --paper-deep: #E8D5BE;
+  --ink: #3A2A1E;
+  --ink-light: #5C4033;
+  --tape: rgba(201,162,39,0.35);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+#dust { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.dust {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ochre);
+  animation: drift linear infinite;
+  opacity: 0;
+}
+@keyframes drift {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  15%  { opacity: 0.25; }
+  85%  { opacity: 0.15; }
+  100% { transform: translateY(-100vh) translateX(var(--dx)); opacity: 0; }
+}
+
+/* ── CAKE LOGO HEADER ── */
+#site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  background: rgba(245,237,227,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(201,162,39,0.15);
+  animation: slideDown 0.8s 0.3s ease both;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cake-svg { animation: cakeFloat 3s ease-in-out infinite; }
+@keyframes cakeFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+.header-wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--brown);
+  letter-spacing: 1px;
+}
+.header-wordmark span {
+  color: var(--burgundy);
+  font-weight: 500;
+}
+
+/* candle flame flicker */
+@keyframes flicker {
+  0%,100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+  25%      { transform: scaleY(1.15) scaleX(0.9); opacity: 0.9; }
+  50%      { transform: scaleY(0.9) scaleX(1.05); opacity: 1; }
+  75%      { transform: scaleY(1.1) scaleX(0.95); opacity: 0.85; }
+}
+.flame { animation: flicker 1.4s ease-in-out infinite; transform-origin: 50% 100%; }
+.flame2 { animation: flicker 1.8s 0.3s ease-in-out infinite; transform-origin: 50% 100%; }
+.flame3 { animation: flicker 1.2s 0.6s ease-in-out infinite; transform-origin: 50% 100%; }
+
+/* ── OPENING ── */
+#opening {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 30px 60px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(123,45,66,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,162,39,0.06) 0%, transparent 70%),
+    var(--paper);
+}
+.opening-rule {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, transparent, var(--burgundy), transparent);
+  margin: 0 auto 50px;
+  animation: growLine 1.8s 0.5s ease forwards;
+}
+@keyframes growLine { to { height: 80px; } }
+.opening-label {
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  color: var(--burgundy);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1s 1.8s ease forwards;
+}
+.opening-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 5vw, 52px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brown);
+  line-height: 1.4;
+  max-width: 680px;
+  margin: 22px auto;
+  opacity: 0;
+  animation: fadeUp 1.2s 2.4s ease forwards;
+}
+.opening-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 2vw, 17px);
+  font-weight: 300;
+  color: var(--brown-light);
+  letter-spacing: 1.5px;
+  opacity: 0;
+  animation: fadeUp 1s 3.4s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SHARED SECTION ── */
+.section { padding: 80px 0; position: relative; z-index: 2; }
+
+/* ── SCRAPBOOK PAGES ── */
+.page {
+  max-width: 900px;
+  margin: 0 auto 100px;
+  padding: 0 30px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.page.revealed { opacity: 1; transform: translateY(0); }
+.page-num {
+  font-family: 'Caveat', cursive;
+  font-size: 13px;
+  color: var(--burgundy);
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.page-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(123,45,66,0.3), transparent);
+}
+.page-inner { display: grid; gap: 40px; align-items: start; }
+.page-inner.left  { grid-template-columns: 1fr 1fr; }
+.page-inner.right { grid-template-columns: 1fr 1fr; direction: rtl; }
+.page-inner.right > * { direction: ltr; }
+.page-inner.center { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
+@media (max-width: 640px) {
+  .page-inner.left, .page-inner.right { grid-template-columns: 1fr; direction: ltr; }
+}
+
+/* POLAROID */
+.polaroid-wrap {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.polaroid-wrap:hover { transform: rotate(0deg) scale(1.04) translateY(-6px) !important; }
+.polaroid-wrap:hover .polaroid {
+  box-shadow: 0 12px 40px rgba(90,62,43,0.22), 0 4px 8px rgba(90,62,43,0.12);
+}
+.polaroid-wrap.rot-neg  { transform: rotate(-2.5deg); }
+.polaroid-wrap.rot-pos  { transform: rotate(1.8deg); }
+.polaroid-wrap.rot-neg2 { transform: rotate(-1.2deg); }
+.tape { position: absolute; z-index: 10; background: var(--tape); border: 1px solid rgba(201,162,39,0.2); }
+.tape.top { width: 70px; height: 22px; top: -11px; left: 50%; transform: translateX(-50%) rotate(-1deg); }
+.tape.corner-tl { width: 55px; height: 20px; top: -10px; left: -8px; transform: rotate(-35deg); }
+.tape.corner-tr { width: 55px; height: 20px; top: -10px; right: -8px; transform: rotate(35deg); }
+.polaroid {
+  background: #FDFAF6;
+  padding: 12px 12px 44px;
+  box-shadow: 0 2px 4px rgba(90,62,43,0.08), 0 8px 30px rgba(90,62,43,0.12), inset 0 0 0 1px rgba(90,62,43,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease;
+}
+.polaroid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.polaroid-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  background: var(--paper-deep);
+  filter: sepia(18%) contrast(0.95) brightness(0.97);
+  transition: filter 0.4s ease;
+}
+.polaroid-wrap:hover .polaroid-img { filter: sepia(5%) contrast(1) brightness(1); }
+.photo-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--paper-deep) 0%, var(--paper-dark) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--brown-light);
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.photo-placeholder svg { opacity: 0.4; }
+.polaroid-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 12px; right: 12px;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  color: var(--brown-mid);
+  letter-spacing: 0.5px;
+}
+
+/* TEXT CARD */
+.text-card {
+  position: relative;
+  padding: 36px 32px;
+  background: linear-gradient(160deg, #FBF5EC 0%, #F5EDE3 100%);
+  border-left: 2px solid rgba(123,45,66,0.2);
+  box-shadow: 0 2px 6px rgba(90,62,43,0.06), 0 10px 40px rgba(90,62,43,0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.text-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(90,62,43,0.12), 0 20px 60px rgba(90,62,43,0.1);
+  border-left-color: var(--burgundy);
+}
+.text-card.torn::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 0; right: 0;
+  height: 8px;
+  background: inherit;
+  clip-path: polygon(0% 80%, 2% 20%, 5% 90%, 8% 10%, 11% 85%, 14% 15%, 17% 75%, 20% 25%, 23% 80%, 26% 10%, 29% 70%, 32% 30%, 35% 80%, 38% 20%, 41% 75%, 44% 15%, 47% 85%, 50% 20%, 53% 80%, 56% 25%, 59% 70%, 62% 30%, 65% 80%, 68% 20%, 71% 85%, 74% 15%, 77% 75%, 80% 25%, 83% 80%, 86% 20%, 89% 70%, 92% 30%, 95% 80%, 98% 20%, 100% 75%, 100% 100%, 0% 100%);
+}
+.card-year {
+  font-family: 'Caveat', cursive;
+  font-size: 13px;
+  color: var(--burgundy);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.card-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brown);
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+.card-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 300;
+  color: var(--ink-light);
+  line-height: 1.9;
+}
+
+/* ── LETTER ── */
+#letter {
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(123,45,66,0.04) 0%, transparent 70%), var(--paper);
+  padding: 80px 30px;
+  position: relative;
+  z-index: 2;
+}
+.letter-paper {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #FDFAF5;
+  padding: 60px 56px 72px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(90,62,43,0.08), 0 20px 60px rgba(90,62,43,0.1), inset 0 0 0 1px rgba(90,62,43,0.05);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.letter-paper.revealed { opacity: 1; transform: translateY(0); }
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  left: 72px; right: 30px; top: 60px; bottom: 30px;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(123,45,66,0.07) 31px, rgba(123,45,66,0.07) 32px);
+  pointer-events: none;
+}
+.letter-paper::after {
+  content: '';
+  position: absolute;
+  left: 64px; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(201,62,62,0.12);
+}
+.letter-date { font-family: 'Caveat', cursive; font-size: 15px; color: var(--brown-light); text-align: right; margin-bottom: 36px; }
+.letter-salutation { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3vw, 26px); font-style: italic; color: var(--brown); margin-bottom: 28px; }
+.letter-body { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2.2vw, 19px); font-weight: 300; color: var(--ink-light); line-height: 2; margin-bottom: 28px; }
+.letter-sign { font-family: 'Caveat', cursive; font-size: 20px; color: var(--brown); margin-top: 40px; line-height: 1.8; }
+.letter-tape {
+  position: absolute;
+  top: -13px; left: 50%; transform: translateX(-50%) rotate(0.8deg);
+  width: 90px; height: 26px;
+  background: rgba(123,45,66,0.2);
+  border: 1px solid rgba(123,45,66,0.15);
+}
+@media (max-width: 680px) {
+  .letter-paper { padding: 40px 28px 50px; }
+  .letter-paper::before { left: 28px; }
+  .letter-paper::after { display: none; }
+}
+
+/* ── INTERACTIVE ── */
+#interactive-section {
+  padding: 60px 30px 80px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.section-eyebrow { font-family: 'Caveat', cursive; font-size: 14px; color: var(--burgundy); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+#open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(14px, 2vw, 17px);
+  font-style: italic;
+  color: var(--brown);
+  background: none;
+  border: 1px solid rgba(123,45,66,0.35);
+  padding: 16px 36px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+#open-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--burgundy-faded);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+#open-btn:hover::before { transform: scaleX(1); }
+#open-btn:hover { border-color: var(--burgundy); color: var(--burgundy); }
+#open-btn svg { transition: transform 0.4s ease; flex-shrink: 0; }
+#open-btn:hover svg { transform: rotate(12deg) scale(1.1); }
+#revealed-note { display: none; max-width: 560px; margin: 50px auto 0; opacity: 0; transform: translateY(20px) scale(0.98); transition: opacity 0.8s ease, transform 0.8s ease; }
+#revealed-note.open { display: block; }
+#revealed-note.visible { opacity: 1; transform: translateY(0) scale(1); }
+.note-paper { background: #FDFAF5; padding: 44px 48px; position: relative; box-shadow: 0 4px 16px rgba(90,62,43,0.1), 0 20px 50px rgba(90,62,43,0.1); border-top: 3px solid var(--burgundy); }
+.note-heading { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 36px); font-style: italic; color: var(--brown); margin-bottom: 18px; line-height: 1.3; }
+.note-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2vw, 20px); font-weight: 300; color: var(--ink-light); line-height: 1.9; }
+.note-ornament { display: block; text-align: center; margin: 24px 0 0; font-family: 'Caveat', cursive; font-size: 26px; color: var(--burgundy); letter-spacing: 8px; }
+
+/* ── ENDING ── */
+#ending {
+  padding: 100px 30px 120px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(123,45,66,0.07) 0%, transparent 70%), var(--paper);
+}
+.ending-rule-wrap { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 50px; }
+.ending-rule { width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--burgundy)); }
+.ending-rule.rev { background: linear-gradient(to left, transparent, var(--burgundy)); }
+.ending-ornament { width: 8px; height: 8px; border: 1px solid var(--burgundy); transform: rotate(45deg); }
+.ending-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 7vw, 72px); font-weight: 400; font-style: italic; color: var(--brown); line-height: 1.2; margin-bottom: 8px; opacity: 0; transition: opacity 1.2s ease, transform 1.2s ease; transform: translateY(20px); }
+.ending-title.revealed { opacity: 1; transform: translateY(0); }
+.ending-name { font-family: 'Playfair Display', serif; font-size: clamp(40px, 9vw, 96px); font-weight: 500; color: var(--burgundy); line-height: 1; margin-bottom: 40px; opacity: 0; transition: opacity 1.2s 0.3s ease, transform 1.2s 0.3s ease; transform: translateY(20px); }
+.ending-name.revealed { opacity: 1; transform: translateY(0); }
+.ending-love { font-family: 'Caveat', cursive; font-size: clamp(18px, 3vw, 26px); color: var(--brown-light); letter-spacing: 1px; opacity: 0; transition: opacity 1s 0.6s ease; }
+.ending-love.revealed { opacity: 1; }
+.ending-year { margin-top: 50px; font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 300; letter-spacing: 4px; color: var(--brown-light); opacity: 0.5; text-transform: uppercase; }
+.doodle { position: absolute; pointer-events: none; opacity: 0.2; }
+
+/* ── FLOATING HEARTS ── */
+#hearts-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+.heart-float {
+  position: absolute;
+  font-size: 16px;
+  animation: heartDrift linear infinite;
+  opacity: 0;
+  user-select: none;
+}
+@keyframes heartDrift {
+  0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-100vh) rotate(25deg) scale(1.1); opacity: 0; }
+}
+
+/* ── SPARKLE STICKER ── */
+.sparkle-sticker {
+  position: absolute;
+  pointer-events: none;
+  animation: sparklePop 2.5s ease-in-out infinite;
+}
+@keyframes sparklePop {
+  0%,100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+  50%      { transform: scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+/* ── WASHI TAPE RAINBOW ── */
+.washi {
+  position: absolute;
+  height: 22px;
+  background: repeating-linear-gradient(90deg, rgba(201,162,39,0.4) 0px, rgba(201,162,39,0.4) 10px, rgba(123,45,66,0.3) 10px, rgba(123,45,66,0.3) 20px);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* ── CONFETTI BUTTON ── */
+#confetti-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 30px auto 0;
+  font-family: 'Caveat', cursive; font-size: 18px;
+  color: var(--burgundy);
+  background: rgba(123,45,66,0.07);
+  border: 2px dashed rgba(123,45,66,0.35);
+  padding: 14px 30px; border-radius: 50px;
+  cursor: pointer; letter-spacing: 1px;
+  transition: all 0.3s ease;
+  animation: btnPulse 2s ease-in-out infinite;
+}
+@keyframes btnPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(123,45,66,0.15); }
+  50%      { box-shadow: 0 0 0 8px rgba(123,45,66,0); }
+}
+#confetti-btn:hover { background: rgba(123,45,66,0.14); transform: scale(1.04); }
+.confetti-piece {
+  position: fixed; pointer-events: none; z-index: 9998;
+  width: 8px; height: 8px; border-radius: 2px;
+  animation: confettiFall 2.5s ease-in forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── LOVE COUNTER ── */
+.love-counter-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; margin: 50px auto 0; text-align: center;
+}
+.love-counter-label {
+  font-family: 'Caveat', cursive; font-size: 16px; color: var(--brown-light); letter-spacing: 2px;
+}
+.love-counter-num {
+  font-family: 'Playfair Display', serif; font-size: clamp(48px, 8vw, 80px);
+  font-style: italic; color: var(--burgundy); line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.love-counter-num.bump { transform: scale(1.25); }
+.love-counter-heart {
+  font-size: 28px; cursor: pointer; user-select: none;
+  transition: transform 0.2s ease; display: inline-block;
+}
+.love-counter-heart:hover { transform: scale(1.3); }
+.love-counter-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; color: var(--brown-light); font-style: italic; }
+
+/* ── CUTE BADGE ── */
+.cute-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--ochre-faded), var(--burgundy-faded));
+  border: 1.5px solid rgba(201,162,39,0.4);
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  color: var(--brown);
+  letter-spacing: 1px;
+  margin: 6px 4px;
+  animation: badgeBob 3s ease-in-out infinite;
+}
+@keyframes badgeBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+.badges-row { text-align: center; padding: 20px 0 0; }
+
+/* ── RIBBON BANNER ── */
+.ribbon-banner {
+  background: linear-gradient(135deg, var(--burgundy), #9E4060);
+  color: #FDFAF5; text-align: center;
+  padding: 18px 30px;
+  font-family: 'Caveat', cursive; font-size: 20px; letter-spacing: 3px;
+  position: relative; margin: 60px 0 0;
+  clip-path: polygon(0 0, 100% 0, 97% 50%, 100% 100%, 0 100%, 3% 50%);
+}
+
+
+/* Still life full-bleed photo */
+.still-life-photo {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: var(--paper-deep);
+  filter: sepia(15%) contrast(0.95) brightness(0.97);
+  transition: filter 0.5s ease;
+}
+.still-life-wrap {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(90,62,43,0.15);
+}
+.still-life-wrap:hover .still-life-photo { filter: sepia(5%) contrast(1) brightness(1); }
+.still-life-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(58,42,30,0.55), transparent);
+  padding: 28px 24px 16px;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  color: rgba(245,237,227,0.9);
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<div id="dust"></div>
+<div id="hearts-canvas"></div>
+<div class="sparkle-sticker" style="top:22%;left:4%;opacity:0.5;">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2 L15.5 12 L26 14 L15.5 16 L14 26 L12.5 16 L2 14 L12.5 12 Z" fill="#C9A227" opacity="0.6"/></svg>
+</div>
+<div class="sparkle-sticker" style="top:45%;right:3%;opacity:0.4;animation-delay:1s;">
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 1 L12 9 L20 11 L12 13 L11 21 L10 13 L2 11 L10 9 Z" fill="#7B2D42" opacity="0.5"/></svg>
+</div>
+<div class="sparkle-sticker" style="top:70%;left:3%;opacity:0.35;animation-delay:0.6s;">
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" fill="#C9A227" opacity="0.7"/><line x1="9" y1="0" x2="9" y2="5" stroke="#C9A227" stroke-width="1.5" opacity="0.5"/><line x1="9" y1="13" x2="9" y2="18" stroke="#C9A227" stroke-width="1.5" opacity="0.5"/><line x1="0" y1="9" x2="5" y2="9" stroke="#C9A227" stroke-width="1.5" opacity="0.5"/><line x1="13" y1="9" x2="18" y2="9" stroke="#C9A227" stroke-width="1.5" opacity="0.5"/></svg>
+</div>
+
+<!-- CAKE LOGO HEADER -->
+<header id="site-header">
+  <div class="header-logo">
+    <svg class="cake-svg" width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- candles -->
+      <rect x="10" y="10" width="3" height="8" rx="1.5" fill="#9E4060"/>
+      <rect x="18.5" y="8" width="3" height="10" rx="1.5" fill="#9E4060"/>
+      <rect x="27" y="10" width="3" height="8" rx="1.5" fill="#9E4060"/>
+      <!-- flames -->
+      <g class="flame">
+        <ellipse cx="11.5" cy="9" rx="1.3" ry="2" fill="#E8A020"/>
+        <ellipse cx="11.5" cy="9.5" rx="0.7" ry="1.1" fill="#F5D060"/>
+      </g>
+      <g class="flame2">
+        <ellipse cx="20" cy="7" rx="1.3" ry="2" fill="#E8A020"/>
+        <ellipse cx="20" cy="7.5" rx="0.7" ry="1.1" fill="#F5D060"/>
+      </g>
+      <g class="flame3">
+        <ellipse cx="28.5" cy="9" rx="1.3" ry="2" fill="#E8A020"/>
+        <ellipse cx="28.5" cy="9.5" rx="0.7" ry="1.1" fill="#F5D060"/>
+      </g>
+      <!-- top tier -->
+      <rect x="7" y="18" width="24" height="7" rx="2" fill="#C9A227"/>
+      <!-- frosting drips on top tier -->
+      <path d="M10 18 Q11 15 12 18 Q13 15.5 14 18 Q15 15 16 18 Q17 15.5 18 18 Q19 15 20 18 Q21 15.5 22 18 Q23 15 24 18 Q25 15.5 26 18 Q27 15 28 18" stroke="#FDFAF5" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <!-- bottom tier -->
+      <rect x="4" y="25" width="30" height="9" rx="2" fill="#7B2D42"/>
+      <!-- frosting drips on bottom tier -->
+      <path d="M7 25 Q8.5 22 10 25 Q11.5 22.5 13 25 Q14.5 22 16 25 Q17.5 22.5 19 25 Q20.5 22 22 25 Q23.5 22.5 25 25 Q26.5 22 28 25 Q29.5 22.5 31 25" stroke="#FDFAF5" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <!-- dots decoration -->
+      <circle cx="10" cy="29" r="1" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="16" cy="28" r="1" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="22" cy="29.5" r="1" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="28" cy="28" r="1" fill="rgba(255,255,255,0.4)"/>
+      <!-- plate -->
+      <ellipse cx="19" cy="34" rx="17" ry="2" fill="rgba(90,62,43,0.12)"/>
+    </svg>
+    <div class="header-wordmark">for <span>Mom</span> — with love</div>
+  </div>
+</header>
+
+<!-- OPENING -->
+<section id="opening">
+  <svg class="doodle" style="top:12%;right:8%;width:40px" viewBox="0 0 40 40" fill="none" stroke="#7B2D42" stroke-width="1">
+    <line x1="20" y1="4" x2="20" y2="36"/><line x1="4" y1="20" x2="36" y2="20"/>
+    <line x1="8" y1="8" x2="32" y2="32"/><line x1="32" y1="8" x2="8" y2="32"/>
+  </svg>
+  <svg class="doodle" style="bottom:18%;left:6%;width:28px" viewBox="0 0 28 28" fill="none" stroke="#7B2D42" stroke-width="1">
+    <path d="M14 4 L17 11 L24 11 L18 16 L20 23 L14 19 L8 23 L10 16 L4 11 L11 11 Z"/>
+  </svg>
+  <div class="opening-rule"></div>
+  <span class="opening-label">A Birthday Journal</span>
+  <h1 class="opening-title">"For the woman who made everywhere feel like home."</h1>
+  <p class="opening-sub">with love &amp; memory &nbsp;·&nbsp; always</p>
+</section>
+
+<!-- SCRAPBOOK PAGES -->
+<section class="section" style="background: var(--paper-dark);">
+
+  <div class="page" id="pg1">
+    <div class="page-num">01 &nbsp; The Beginning</div>
+    <div class="page-inner left">
+      <div class="polaroid-wrap rot-neg">
+        <div class="tape top"></div>
+        <div class="polaroid">
+          <img class="polaroid-img" src="1.jpeg" alt="Memory 1"
+               onerror="this.outerHTML='<div class=\'photo-placeholder\'><svg width=\'36\' height=\'36\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#7A5440\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>1.jpeg</span></div>'">
+          <span class="polaroid-caption">home, always</span>
+        </div>
+      </div>
+      <div class="text-card torn">
+        <div class="card-year">The earliest memory</div>
+        <h2 class="card-heading">You were the first warmth I ever knew.</h2>
+        <p class="card-body">Long before I could make sense of the world, I had already learned you — the steadiness in your hands, the calm in your voice, the way a whole room seemed to exhale when you walked in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="pg2">
+    <div class="page-num">02 &nbsp; Growing Up</div>
+    <div class="page-inner right">
+      <div class="polaroid-wrap rot-pos">
+        <div class="tape corner-tr"></div>
+        <div class="polaroid">
+          <img class="polaroid-img" src="2.jpeg" alt="Memory 2"
+               onerror="this.outerHTML='<div class=\'photo-placeholder\'><svg width=\'36\' height=\'36\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#7A5440\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>2.jpeg</span></div>'">
+          <span class="polaroid-caption">lessons without words</span>
+        </div>
+      </div>
+      <div class="text-card">
+        <div class="card-year">All the years between</div>
+        <h2 class="card-heading">You taught me things no classroom ever could.</h2>
+        <p class="card-body">How to be patient when patience felt impossible. How to keep going when everything inside you wanted to stop. How to love someone completely, without keeping score. You never made it a lesson — you just lived it, and I was watching the whole time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 — Still Life, full-bleed photo treatment -->
+  <div class="page" id="pg3">
+    <div class="page-num">03 &nbsp; A Still Life</div>
+    <div class="page-inner center">
+      <div class="still-life-wrap rot-neg2">
+        <img class="still-life-photo" src="3.jpeg" alt="A still life memory"
+             onerror="this.outerHTML='<div class=\'photo-placeholder\' style=\'aspect-ratio:16/9;max-height:320px\'><svg width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#7A5440\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>3.jpeg</span></div>'">
+        <div class="still-life-caption">ordinary, extraordinary</div>
+      </div>
+      <div class="text-card" style="text-align:center;margin-top:30px;">
+        <h2 class="card-heading">"The small moments were never actually small."</h2>
+        <p class="card-body">The morning routines. The meals we made noise over. The car rides with the window cracked just right. I didn't know, back then, that I was collecting them — holding them without realising. I know now. I'm grateful I wasn't paying less attention.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="pg4">
+    <div class="page-num">04 &nbsp; The Quiet Ones</div>
+    <div class="page-inner left">
+      <div class="polaroid-wrap rot-pos">
+        <div class="tape corner-tl"></div>
+        <div class="polaroid">
+          <img class="polaroid-img" src="4.jpeg" alt="Memory 4"
+               onerror="this.outerHTML='<div class=\'photo-placeholder\'><svg width=\'36\' height=\'36\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#7A5440\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>4.jpeg</span></div>'">
+          <span class="polaroid-caption">quiet evenings</span>
+        </div>
+      </div>
+      <div class="text-card torn">
+        <div class="card-year">In the silence</div>
+        <h2 class="card-heading">The things you never said out loud were somehow the loudest.</h2>
+        <p class="card-body">A hand placed gently on a shoulder at just the right moment. A light left on past midnight, just in case. A meal kept warm without being asked. Your love never needed much volume. It had a way of filling the whole room anyway.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="pg5">
+    <div class="page-num">05 &nbsp; Strength</div>
+    <div class="page-inner right">
+      <div class="polaroid-wrap rot-neg">
+        <div class="tape top"></div>
+        <div class="polaroid">
+          <img class="polaroid-img" src="5.jpeg" alt="Memory 5"
+               onerror="this.outerHTML='<div class=\'photo-placeholder\'><svg width=\'36\' height=\'36\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#7A5440\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>5.jpeg</span></div>'">
+          <span class="polaroid-caption">unbreakable</span>
+        </div>
+      </div>
+      <div class="text-card">
+        <div class="card-year">What I admire most</div>
+        <h2 class="card-heading">I have watched you carry the heaviest things and still stand tall.</h2>
+        <p class="card-body">You never let the hard parts swallow you. You bent — God, there were times you really bent — but you never broke. That quiet, stubborn resilience you carry? It lives in me too, now. It's the best thing I've inherited. I take it with me everywhere I go.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PHOTO GRID -->
+<section class="section" style="background:var(--paper); padding: 80px 30px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="page-num" style="margin-bottom:40px;opacity:0;transition:opacity 0.9s ease;" id="gridLabel">
+      06 – 10 &nbsp; More of Us
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px;" id="photoGrid"></div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section id="letter">
+  <div style="text-align:center;margin-bottom:50px;opacity:0;transition:opacity 0.9s ease;" id="letterLabel">
+    <span class="section-eyebrow">A Letter</span>
+  </div>
+  <div class="letter-paper" id="letterPaper">
+    <div class="letter-tape"></div>
+    <div class="letter-date">This birthday, and every one after.</div>
+    <div class="letter-salutation">Dear Mom,</div>
+    <p class="letter-body">I've been searching for the right words for longer than I'd like to admit. The truth is, there aren't any big enough. Language, just this once, isn't enough.</p>
+    <p class="letter-body">You gave me a sense of belonging before I even knew what that word meant. You made a home out of every place we lived — not with things, but with the way you moved through rooms. Steady. Warm. Certain. Like you'd already decided everything was going to be okay, and made me believe it too.</p>
+    <p class="letter-body">I want you to know that I noticed everything. Every early morning. Every late night you stayed up when you didn't have to. Every worry you held quietly to yourself so I wouldn't have to carry it. Every sacrifice you made without once calling it one.</p>
+    <p class="letter-body">You are fifty years of grace. Fifty years of love that never once kept a tally. And somehow — impossibly — you're still finding ways to give more.</p>
+    <p class="letter-body">Thank you. For the patience you gave me when I didn't deserve it. For the kindness you showed me when I was being difficult. For being present — really, fully present — in a way that I now understand is rarer than it should be.</p>
+    <p class="letter-body">Today belongs to you. Every page of this does. Every memory I held here was held with care — because you are worth that care, and a great deal more besides.</p>
+    <div class="letter-sign">
+      With all my love,<br>
+      <span style="font-size:24px;color:var(--burgundy);">Your child ♡</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE -->
+<section id="interactive-section" class="page">
+  <p class="section-eyebrow">One more thing</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--brown-light);margin-bottom:30px;">There is a page I saved just for today.</p>
+  <button id="open-btn" onclick="revealNote()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    </svg>
+    Open this page
+  </button>
+  <div id="revealed-note">
+    <div class="note-paper">
+      <p class="note-heading">Fifty years, and still the most radiant person in every room.</p>
+      <p class="note-text">
+        This isn't an ending — it's a note in the margin of something that carries on and on.<br><br>
+        May this year bring you rest, real rest, and every small pleasure you've spent so long giving away to everyone else.<br><br>
+        You deserve the whole world. You always did.
+      </p>
+      <span class="note-ornament">· · ·</span>
+    </div>
+  </div>
+</section>
+
+<!-- CUTE EXTRAS -->
+<section style="padding:60px 30px;text-align:center;position:relative;z-index:2;">
+  <div class="ribbon-banner">🎀 &nbsp; Happy Birthday, Mom &nbsp; 🎂 &nbsp; You Are So Loved &nbsp; 🌸</div>
+
+  <div class="badges-row" style="margin-top:40px;">
+    <span class="cute-badge">✨ World's Best Mom</span>
+    <span class="cute-badge" style="animation-delay:0.4s;">🌷 Queen of Kindness</span>
+    <span class="cute-badge" style="animation-delay:0.8s;">☕ Snack Provider Extraordinaire</span>
+    <span class="cute-badge" style="animation-delay:1.2s;">🌙 Night Light Keeper</span>
+    <span class="cute-badge" style="animation-delay:1.6s;">💛 Softest Heart in the Room</span>
+    <span class="cute-badge" style="animation-delay:2s;">🎈 50 & Radiant</span>
+  </div>
+
+  <!-- Love Counter -->
+  <div class="love-counter-wrap">
+    <div class="love-counter-label">REASONS I LOVE YOU</div>
+    <div class="love-counter-num" id="loveNum">50</div>
+    <div class="love-counter-sub">tap the heart to add one more ♡</div>
+    <span class="love-counter-heart" id="loveHeart" onclick="addLove()" title="Add more love!">💗</span>
+  </div>
+
+  <!-- Confetti Button -->
+  <div style="margin-top:40px;">
+    <button id="confetti-btn" onclick="launchConfetti()">🎉 Celebrate Mom! 🎉</button>
+  </div>
+</section>
+
+<!-- ENDING -->
+<section id="ending">
+  <div class="ending-rule-wrap">
+    <div class="ending-rule"></div>
+    <div class="ending-ornament"></div>
+    <div class="ending-rule rev"></div>
+  </div>
+  <p class="ending-title" id="endTitle">Happy Birthday,</p>
+  <p class="ending-name" id="endName">Mom.</p>
+  <p class="ending-love" id="endLove">— with love, always ♡</p>
+  <p class="ending-year">This page was made for you &nbsp;·&nbsp; with intention &amp; love</p>
+</section>
+
+<script>
+(function(){
+  const d = document.getElementById('dust');
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div');
+    p.className = 'dust';
+    const sz = 1+Math.random()*2.5;
+    p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;bottom:-6px;--dx:${(Math.random()-0.5)*60}px;animation-duration:${12+Math.random()*20}s;animation-delay:${Math.random()*15}s;`;
+    d.appendChild(p);
+  }
+})();
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('revealed');
+      const ltrLbl = document.getElementById('letterLabel');
+      if(ltrLbl && e.target.id==='letterPaper') ltrLbl.style.opacity='1';
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.page, .letter-paper').forEach(el=>observer.observe(el));
+
+const endObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      ['endTitle','endName','endLove'].forEach(id=>document.getElementById(id).classList.add('revealed'));
+    }
+  });
+},{threshold:0.3});
+const ending = document.getElementById('ending');
+if(ending) endObs.observe(ending);
+
+const gridLabelObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.style.opacity='1'; });
+},{threshold:0.5});
+const gl = document.getElementById('gridLabel');
+if(gl) gridLabelObs.observe(gl);
+
+const ltrObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.style.opacity='1'; });
+},{threshold:0.5});
+const ll = document.getElementById('letterLabel');
+if(ll) ltrObs.observe(ll);
+
+const grid = document.getElementById('photoGrid');
+const captions = ['afternoon light','a moment kept','through the years','soft days','remembered'];
+const angles = [-1.5, 2, -2.5, 1.2, -1];
+[6,7,8,9,10].forEach((n,i)=>{
+  const wrap = document.createElement('div');
+  wrap.className = 'polaroid-wrap';
+  wrap.style.transform = `rotate(${angles[i]}deg)`;
+  wrap.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease';
+  wrap.style.cursor = 'pointer';
+  wrap.addEventListener('mouseenter',()=>{ wrap.style.transform='rotate(0deg) scale(1.06) translateY(-6px)'; });
+  wrap.addEventListener('mouseleave',()=>{ wrap.style.transform=`rotate(${angles[i]}deg)`; });
+  const tape = document.createElement('div');
+  tape.className = 'tape top';
+  tape.style.width = '50px';
+  const pol = document.createElement('div');
+  pol.className = 'polaroid';
+  const img = document.createElement('img');
+  img.className = 'polaroid-img';
+  img.src = n+'.jpeg';
+  img.alt = 'Memory '+n;
+  img.onerror = function(){
+    const ph = document.createElement('div');
+    ph.className = 'photo-placeholder';
+    ph.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7A5440" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>${n}.jpeg</span>`;
+    pol.replaceChild(ph, img);
+  };
+  const cap = document.createElement('span');
+  cap.className = 'polaroid-caption';
+  cap.textContent = captions[i];
+  pol.appendChild(img);
+  pol.appendChild(cap);
+  wrap.appendChild(tape);
+  wrap.appendChild(pol);
+  grid.appendChild(wrap);
+});
+
+// Floating hearts
+(function(){
+  const hc = document.getElementById('hearts-canvas');
+  const emojis = ['♡','♥','💛','🌸','✨','💕','🎀','🌷'];
+  function spawnHeart(){
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    const sz = 10 + Math.random()*18;
+    h.style.cssText = `font-size:${sz}px;left:${Math.random()*100}vw;bottom:-30px;animation-duration:${14+Math.random()*18}s;animation-delay:${Math.random()*12}s;`;
+    hc.appendChild(h);
+    setTimeout(()=>h.remove(), 32000);
+  }
+  for(let i=0;i<14;i++) spawnHeart();
+  setInterval(spawnHeart, 3500);
+})();
+
+// Love counter
+let loveCount = 50;
+function addLove(){
+  loveCount++;
+  const el = document.getElementById('loveNum');
+  el.textContent = loveCount;
+  el.classList.remove('bump');
+  void el.offsetWidth;
+  el.classList.add('bump');
+  const heart = document.getElementById('loveHeart');
+  const mini = document.createElement('span');
+  mini.textContent = '💗';
+  mini.style.cssText = `position:fixed;font-size:24px;pointer-events:none;z-index:9999;left:${heart.getBoundingClientRect().left}px;top:${heart.getBoundingClientRect().top}px;animation:heartDrift 1.5s ease forwards;`;
+  document.body.appendChild(mini);
+  setTimeout(()=>mini.remove(), 1600);
+}
+window.addLove = addLove;
+
+// Confetti
+function launchConfetti(){
+  const colors = ['#C9A227','#7B2D42','#E8A020','#F5D060','#9E4060','#D4AF50','#F5EDE3'];
+  for(let i=0;i<80;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.cssText = `left:${20+Math.random()*60}vw;top:${30+Math.random()*20}vh;background:${colors[Math.floor(Math.random()*colors.length)]};transform:rotate(${Math.random()*360}deg);animation-delay:${Math.random()*0.6}s;border-radius:${Math.random()>0.5?'50%':'2px'};`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 3200);
+  }
+}
+window.launchConfetti = launchConfetti;
+
+function revealNote(){
+  const note = document.getElementById('revealed-note');
+  const btn = document.getElementById('open-btn');
+  note.style.display = 'block';
+  note.style.opacity = '0';
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ note.classList.add('visible'); note.style.opacity='1'; note.style.transform='translateY(0) scale(1)'; }); });
+}
+window.revealNote = revealNote;
+</script>
+</body>
+</html>
